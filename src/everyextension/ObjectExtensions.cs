@@ -73,4 +73,32 @@ public static class ObjectExtensions
 
     public static bool IsDefault<T>(this T obj)
         => EqualityComparer<T>.Default.Equals(obj, default);
+
+    public static void CopyProperties<T>(this T source, T destination)
+    {
+        var properties = typeof(T).GetProperties();
+        foreach (var property in properties)
+        {
+            if (property.CanRead && property.CanWrite)
+            {
+                var value = property.GetValue(source);
+                property.SetValue(destination, value);
+            }
+        }
+    }
+
+    public static IEnumerable<T> WrapInEnumerable<T>(this T obj)
+    {
+        yield return obj;
+    }
+
+    public static List<T> AsList<T>(this T obj)
+    {
+        if (obj is IEnumerable<T> enumerable)
+            return enumerable.ToList();
+        return [obj];
+    }
+
+    public static bool IsPrimitive(this object obj)
+        => obj != null && obj.GetType().IsPrimitive;
 }
