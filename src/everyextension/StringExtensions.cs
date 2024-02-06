@@ -29,7 +29,7 @@ public static class StringExtensions
 
     public static string ToTitleCase(this string value)
     {
-        return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+        return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
     }
 
     public static bool IsNumeric(this string value)
