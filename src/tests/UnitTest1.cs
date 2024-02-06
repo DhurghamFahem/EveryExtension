@@ -1,4 +1,4 @@
-namespace EveryExtention.Tests;
+namespace EveryExtension.Tests;
 
 public class UnitTest1
 {
