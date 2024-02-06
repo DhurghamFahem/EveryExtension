@@ -6,5 +6,7 @@ public class UnitTest1
     public void Test1()
     {
         var lst = new List<int>();
+
+        object obj = new object();
     }
 }
