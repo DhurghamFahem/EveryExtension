@@ -203,4 +203,10 @@ public static class DecimalExtensions
 
     public static decimal Clamp(this decimal value, decimal minValue, decimal maxValue)
         => Math.Max(minValue, Math.Min(maxValue, value));
+
+    public static string ToHexadecimal(this decimal value)
+        => Convert.ToString((long)value, 16).ToUpper();
+
+    public static decimal Root(this decimal value, int n)
+        => (decimal)Math.Pow((double)value, 1.0 / n);
 }
