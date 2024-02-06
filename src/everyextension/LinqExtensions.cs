@@ -18,6 +18,11 @@ public static class LinqExtensions
         return condition ? source.Where(predicate) : source;
     }
 
+    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, bool> truePredicate, Func<T, bool> falsePredicate)
+    {
+        return condition ? source.Where(truePredicate) : source.Where(falsePredicate);
+    }
+
     public static bool SequenceEqual<T>(this IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer)
         => first.SequenceEqual(second, comparer);
 
