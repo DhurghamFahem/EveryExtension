@@ -85,6 +85,24 @@ public static class DateTimeExtensions
         return $"{(int)elapsed.TotalDays} day{elapsedChar} ago";
     }
 
+    public static double ElapsedMinutes(this DateTime date)
+    {
+        var elapsed = DateTime.Now - date;
+        return elapsed.TotalMinutes;
+    }
+
+    public static double ElapsedHours(this DateTime date)
+    {
+        var elapsed = DateTime.Now - date;
+        return elapsed.TotalHours;
+    }
+
+    public static double ElapsedDays(this DateTime date)
+    {
+        var elapsed = DateTime.Now - date;
+        return elapsed.TotalDays;
+    }
+
     public static bool IsMorning(this DateTime time)
         => time.Hour >= 0 && time.Hour < 12;
 
