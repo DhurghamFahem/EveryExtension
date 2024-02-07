@@ -23,6 +23,12 @@ public static class LinqExtensions
         return condition ? source.Where(truePredicate) : source.Where(falsePredicate);
     }
 
+    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, Func<T, int, bool> condition, Func<T, bool> predicate)
+    {
+        return source.Where((item, index) => condition(item, index)).Where(predicate);
+    }
+
+
     public static bool SequenceEqual<T>(this IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer)
         => first.SequenceEqual(second, comparer);
 
@@ -44,7 +50,10 @@ public static class LinqExtensions
 
     public static string ToDelimitedString<T>(this IEnumerable<T> source, string delimiter)
         => string.Join(delimiter, source);
-
+    
+    public static string ToDelimitedString<T>(this IEnumerable<T> source, string delimiter, Func<T, string> selector)
+        => string.Join(delimiter, source.Select(selector)); 
+    
     public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         => !source.Any(predicate);
 
@@ -76,5 +85,32 @@ public static class LinqExtensions
             list[n] = value;
         }
         return list;
+    }
+
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, Random random)
+    {
+        var list = source.ToList();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = random.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+        return list;
+    }
+
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, int seed)
+    {
+        var random = new Random(seed);
+        return source.Shuffle(random);
+    }
+
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, Random random, int seed)
+    {
+        random = new Random(seed);
+        return source.Shuffle(random);
     }
 }
