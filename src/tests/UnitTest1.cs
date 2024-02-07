@@ -10,7 +10,11 @@ public class UnitTest1
         object obj = new object();
 
         type t = type.None;
-        t.get
+
+
+        var info = new FileInfo("");
+        info.ge
+
     }
 
     enum type

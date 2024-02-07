@@ -155,4 +155,17 @@ public static class StringExtensions
 
     public static string SwapCase(this string value)
         => new(value.Select(c => c.IsLetter() ? (c.IsUpperCase() ? c.ToLowerCase() : c.ToUpperCase()) : c).ToArray());
+
+    public static T ToEnumOrDefault<T>(this string value, T defaultValue) where T : struct
+    {
+        if (Enum.TryParse(value, true, out T result))
+            return result;
+        return defaultValue;
+    }
+
+    public static bool IsGuidString(this string value)
+        => Guid.TryParse(value, out _);
+
+    public static Guid ToGuid(this string value)
+      => value.IsGuidString() ? Guid.Parse(value) : throw new ArgumentException("The value is not guid string.");
 }
