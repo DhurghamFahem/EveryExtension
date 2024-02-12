@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Text.Json;
 
 namespace EveryExtension;
 
@@ -18,13 +18,13 @@ public static class ObjectExtensions
         => collection.Contains(obj);
 
     public static string ToJson(this object obj)
-        => JsonConvert.SerializeObject(obj);
+        => JsonSerializer.Serialize(obj);
 
     public static T? Copy<T>(this T? obj)
     {
         if (obj == null)
             return default;
-        return JsonConvert.DeserializeObject<T?>(obj.ToJson());
+        return JsonSerializer.Deserialize<T?>(obj.ToJson());
     }
 
     public static Dictionary<string, object?> ToDictionary(this object obj)

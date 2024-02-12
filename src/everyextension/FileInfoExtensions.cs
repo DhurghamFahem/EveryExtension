@@ -1,6 +1,7 @@
 ﻿using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace EveryExtension;
 
@@ -156,5 +157,17 @@ public static class FileInfoExtensions
         var entry = archive.CreateEntry(fileInfo.Name);
         using var entryStream = entry.Open();
         originalFileStream.CopyTo(entryStream);
+    }
+
+    public static T? ReadJsonAsObject<T>(this FileInfo fileInfo)
+    {
+        var content = fileInfo.ReadAllText();
+        return JsonSerializer.Deserialize<T>(content);
+    }
+
+    public static void WriteObjectAsJson(this FileInfo fileInfo, object obj)
+    {
+        var json = obj.ToJson();
+        fileInfo.WriteAllText(json);
     }
 }
