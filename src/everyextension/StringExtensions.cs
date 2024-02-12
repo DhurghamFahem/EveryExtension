@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Net;
 using System.Text;
 
@@ -48,21 +47,7 @@ public static class StringExtensions
     {
         if (string.IsNullOrWhiteSpace(value))
             return false;
-
         return Uri.TryCreate(value, UriKind.Absolute, out _);
-    }
-
-    public static bool IsJson(this string value)
-    {
-        try
-        {
-            JToken.Parse(value);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
     }
 
     public static int WordCount(this string value)
@@ -168,4 +153,13 @@ public static class StringExtensions
 
     public static Guid ToGuid(this string value)
       => value.IsGuidString() ? Guid.Parse(value) : throw new ArgumentException("The value is not guid string.");
+
+    public static bool IsValidIPAddress(this string ipAddressString)
+        => IPAddress.TryParse(ipAddressString, out _);
+
+    public static bool IsValidIPv4(this string ipAddressString)
+        => IPAddress.TryParse(ipAddressString, out IPAddress? ipAddress) && ipAddress != null && ipAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork;
+
+    public static bool IsValidIPv6(this string ipAddressString)
+        => IPAddress.TryParse(ipAddressString, out IPAddress? ipAddress) && ipAddress != null && ipAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6;
 }
