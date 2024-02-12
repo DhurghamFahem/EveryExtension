@@ -44,12 +44,23 @@ public static class BoolExtensions
     public static bool ToggleIf(this bool value, bool condition)
         => condition ? !value : value;
 
+    /// <summary>
+    /// Executes an action if the boolean value is true.
+    /// </summary>
+    /// <param name="value">The boolean value to check.</param>
+    /// <param name="action">The action to execute if the boolean value is true.</param>
     public static void IfTrue(this bool value, Action action)
     {
         if (value)
             action();
     }
 
+    /// <summary>
+    /// Executes different actions based on whether the boolean value is true or false.
+    /// </summary>
+    /// <param name="value">The boolean value to check.</param>
+    /// <param name="trueAction">The action to execute if the boolean value is true.</param>
+    /// <param name="falseAction">The action to execute if the boolean value is false.</param>
     public static void IfTrue(this bool value, Action trueAction, Action falseAction)
     {
         if (value)
@@ -57,11 +68,25 @@ public static class BoolExtensions
         else falseAction();
     }
 
+    /// <summary>
+    /// Invokes different functions based on whether the boolean value is true or false and returns the result.
+    /// </summary>
+    /// <typeparam name="T">The type of the result.</typeparam>
+    /// <param name="value">The boolean value to check.</param>
+    /// <param name="trueFunc">The function to invoke if the boolean value is true.</param>
+    /// <param name="falseFunc">The function to invoke if the boolean value is false.</param>
+    /// <returns>The result of the invoked function.</returns>
     public static T IfTrue<T>(this bool value, Func<T> trueFunc, Func<T> falseFunc)
     {
         return value ? trueFunc() : falseFunc();
     }
 
+    /// <summary>
+    /// Performs a logical AND operation between the original boolean value and an array of boolean values.
+    /// </summary>
+    /// <param name="value">The original boolean value.</param>
+    /// <param name="values">An array of boolean values to perform the AND operation with.</param>
+    /// <returns>The result of the logical AND operation.</returns>
     public static bool And(this bool value, params bool[] values)
     {
         foreach (var v in values)
