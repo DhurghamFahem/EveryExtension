@@ -2,7 +2,7 @@
 
 namespace EveryExtension;
 
-public static class LinqExtensions
+public static class EnumerableExtensions
 {
     public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source)
     {
@@ -131,4 +131,29 @@ public static class LinqExtensions
 
     public static IEnumerable<T> RandomSample<T>(this IEnumerable<T> query, int sampleSize)
         => query.OrderBy(_ => Guid.NewGuid()).Take(sampleSize);
+
+    /// <summary>
+    /// Counts the number of true values in a sequence of booleans.
+    /// </summary>
+    /// <param name="values">The sequence of boolean values to count.</param>
+    /// <returns>The count of true values in the sequence.</returns>
+    public static int CountTrue(this IEnumerable<bool> values)
+        => values.Count(c => c);
+
+    /// <summary>
+    /// Counts the number of false values in a sequence of booleans.
+    /// </summary>
+    /// <param name="values">The sequence of boolean values to count.</param>
+    /// <returns>The count of false values in the sequence.</returns>
+    public static int CountFalse(this IEnumerable<bool> values)
+        => values.Count(c => !c);
+
+    /// <summary>
+    /// Counts the occurrences of a specified boolean value in a sequence of booleans.
+    /// </summary>
+    /// <param name="values">The sequence of boolean values to count occurrences from.</param>
+    /// <param name="targetValue">The boolean value to count occurrences of.</param>
+    /// <returns>The count of occurrences of the specified boolean value.</returns>
+    public static int CountOccurrences(this IEnumerable<bool> values, bool targetValue)
+        => values.Count(v => v == targetValue);
 }

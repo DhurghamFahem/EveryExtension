@@ -94,6 +94,12 @@ public static class BoolExtensions
         return value;
     }
 
+    /// <summary>
+    /// Performs a logical OR operation between the original boolean value and an array of boolean values.
+    /// </summary>
+    /// <param name="value">The original boolean value.</param>
+    /// <param name="values">An array of boolean values to perform the OR operation with.</param>
+    /// <returns>The result of the logical OR operation.</returns>
     public static bool Or(this bool value, params bool[] values)
     {
         foreach (var v in values)
@@ -101,39 +107,72 @@ public static class BoolExtensions
         return value;
     }
 
+    /// <summary>
+    /// Performs a logical XOR (exclusive OR) operation between two boolean values.
+    /// </summary>
+    /// <param name="value1">The first boolean value.</param>
+    /// <param name="value2">The second boolean value.</param>
+    /// <returns>The result of the logical XOR operation.</returns>
     public static bool Xor(this bool value1, bool value2)
         => value1 ^ value2;
 
+    /// <summary>
+    /// Converts a boolean value to a custom string representation, using specified strings for true and false values.
+    /// </summary>
+    /// <param name="value">The boolean value to convert.</param>
+    /// <param name="trueString">The string representation for true.</param>
+    /// <param name="falseString">The string representation for false.</param>
+    /// <returns>The custom string representation based on the boolean value.</returns>
     public static string ToString(this bool value, string trueString, string falseString)
         => value ? trueString : falseString;
 
-    public static bool? IsNull(this bool? value)
-        => value == null;
-
-    public static bool? IsNotNull(this bool? value)
-        => value != null;
-
-    public static int CountTrue(this IEnumerable<bool> values)
-        => values.Count(c => c);
-
-    public static int CountFalse(this IEnumerable<bool> values)
-        => values.Count(c => !c);
-
-    public static int CountOccurrences(this IEnumerable<bool> values, bool targetValue)
-        => values.Count(v => v == targetValue);
-
+    /// <summary>
+    /// Checks if a nullable boolean value is either null or false.
+    /// </summary>
+    /// <param name="value">The nullable boolean value to check.</param>
+    /// <returns>True if the value is null or false; otherwise, false.</returns>
     public static bool IsNullOrFalse(this bool? value)
         => value == null || value == false;
 
+    /// <summary>
+    /// Converts a boolean value to an emoji representation, using "✅" for true and "❌" for false.
+    /// </summary>
+    /// <param name="value">The boolean value to convert.</param>
+    /// <returns>The emoji representation based on the boolean value.</returns>
     public static string ToEmoji(this bool value)
         => value ? "✅" : "❌";
 
-    public static bool InvertIfTrue(this bool value)
+    /// <summary>
+    /// Toggles the boolean value only if it is initially true.
+    /// </summary>
+    /// <param name="value">The boolean value to toggle.</param>
+    /// <returns>The toggled boolean value if it is initially true; otherwise, the original value.</returns>
+    public static bool ToggleIfTrue(this bool value)
         => value ? !value : value;
 
+    /// <summary>
+    /// Toggles the boolean value only if it is initially false.
+    /// </summary>
+    /// <param name="value">The boolean value to toggle.</param>
+    /// <returns>The toggled boolean value if it is initially false; otherwise, the original value.</returns>
+    public static bool ToggleIfFalse(this bool value)
+        => !value ? !value : value;
+
+    /// <summary>
+    /// Checks if the boolean value is the same as another boolean value.
+    /// </summary>
+    /// <param name="value">The boolean value to compare.</param>
+    /// <param name="other">The other boolean value to compare with.</param>
+    /// <returns>True if the values are the same; otherwise, false.</returns>
     public static bool IsSameAs(this bool value, bool other)
         => value == other;
 
+    /// <summary>
+    /// Checks if two boolean values are distinct (not equal).
+    /// </summary>
+    /// <param name="value1">The first boolean value to compare.</param>
+    /// <param name="value2">The second boolean value to compare.</param>
+    /// <returns>True if the values are distinct; otherwise, false.</returns>
     public static bool IsDistinct(this bool value1, bool value2)
         => value1 != value2;
 }
