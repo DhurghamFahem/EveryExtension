@@ -1,5 +1,8 @@
 ﻿namespace EveryExtension;
 
+/// <summary>
+/// Extension methods for bool type.
+/// </summary>
 public static class BoolExtensions
 {
     /// <summary>

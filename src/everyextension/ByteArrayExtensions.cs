@@ -1,5 +1,8 @@
 ﻿namespace EveryExtension;
 
+/// <summary>
+/// Extension methods for byte[] type.
+/// </summary>
 public static class ByteArrayExtensions
 {
     /// <summary>
