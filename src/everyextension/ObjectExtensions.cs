@@ -101,4 +101,7 @@ public static class ObjectExtensions
 
     public static bool IsPrimitive(this object obj)
         => obj != null && obj.GetType().IsPrimitive;
+
+    public static object? AsNullable(this object value)
+        => value;
 }
