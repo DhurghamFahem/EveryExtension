@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Net;
+using System.Net.Mail;
 using System.Text;
 
 namespace EveryExtension;
@@ -45,9 +46,17 @@ public static class StringExtensions
     /// <returns>true if the string is in email format; otherwise, false.</returns>
     public static bool IsEmail(this string value)
     {
-        if (value.IsNullOrWhiteSpace())
+        if (value.IsNullOrEmptyOrWhiteSpace())
             return false;
-        return IPAddress.TryParse(value, out _);
+        try
+        {
+            var mailAddress = new MailAddress(value);
+            return mailAddress.Address == value;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -56,9 +65,7 @@ public static class StringExtensions
     /// <param name="value">The string to convert.</param>
     /// <returns>The string with the first character in title case.</returns>
     public static string ToTitleCase(this string value)
-    {
-        return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
-    }
+        => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
 
     /// <summary>
     /// Determines whether a string represents a numeric value.
